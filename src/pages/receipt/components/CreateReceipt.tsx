@@ -6,102 +6,80 @@ import {
     DialogHeader,
     DialogFooter,
     DialogTitle,
-} from '../ui/dialog';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+} from '../../../components/ui/dialog';
+import { Label } from '../../../components/ui/label';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
 import {
     SelectContent,
     Select,
     SelectValue,
     SelectTrigger,
     SelectItem,
-} from '../ui/select';
+} from '../../../components/ui/select';
 import toast from 'react-hot-toast';
 
-function CreateIncome({
+function CreateReceipt({
     isDialogOpen,
     setDialogOpen,
 }: {
     isDialogOpen: boolean;
     setDialogOpen: (open: boolean) => void;
 }) {
-    // Receipt form data
-    const [incomeFormData, setIncomeFormData] = useState({
-        receiptNumber: '',
-        customerName: '',
+    const [importFormData, setImportFormData] = useState({
+        importNumber: '',
+        supplier: '',
         date: new Date().toISOString().split('T')[0],
         time: new Date().toTimeString().slice(0, 5),
-        amount: 0,
-        paymentMethod: 'Tiền mặt' as const,
-        collector: 'A Nguyen Van',
-        status: 'Đã thu' as const,
+        totalItems: 0,
+        totalAmount: 0,
+        createdBy: 'A Nguyen Van',
+        status: 'Hoàn thành' as const,
     });
-    // Receipt handler
-    const handleCreateReceipt = () => {
-        if (incomeFormData.customerName && incomeFormData.amount > 0) {
-            toast.success('Phiếu thu mới đã được tạo thành công!');
+    // Import handler
+    const handleCreateImport = () => {
+        if (importFormData.supplier && importFormData.totalAmount > 0) {
+            toast.success('Phiếu nhập đã được tạo thành công!');
             setDialogOpen(false);
-            setIncomeFormData({
-                receiptNumber: '',
-                customerName: '',
+            setImportFormData({
+                importNumber: '',
+                supplier: '',
                 date: new Date().toISOString().split('T')[0],
                 time: new Date().toTimeString().slice(0, 5),
-                amount: 0,
-                paymentMethod: 'Tiền mặt',
-                collector: 'A Nguyen Van',
-                status: 'Đã thu',
+                totalItems: 0,
+                totalAmount: 0,
+                createdBy: 'A Nguyen Van',
+                status: 'Hoàn thành',
             });
         } else {
-            toast.error('Vui lòng nhập tên khách hàng và số tiền!');
+            toast.error('Vui lòng nhập nhà cung cấp và tổng tiền!');
         }
     };
     return (
         <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
             <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Tạo phiếu thu mới</DialogTitle>
+                    <DialogTitle>Tạo phiếu nhập mới</DialogTitle>
                     <DialogDescription>
-                        Nhập thông tin phiếu thu mới
+                        Nhập thông tin phiếu nhập hàng mới
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-5 py-4">
-                    {/* Số phiếu thu */}
+                    {/* Số phiếu nhập */}
                     <div className="space-y-2">
                         <Label
-                            htmlFor="receiptNumber"
+                            htmlFor="importNumber"
                             className="text-sm font-medium"
                         >
-                            Số phiếu thu
-                        </Label>
-
-                        <Input
-                            id="receiptNumber"
-                            value={incomeFormData.receiptNumber || 'PT001'}
-                            onChange={(e) =>
-                                setIncomeFormData({
-                                    ...incomeFormData,
-                                    receiptNumber: e.target.value,
-                                })
-                            }
-                            className="bg-gray-50"
-                            placeholder="Tự động tạo"
-                            readOnly
-                        />
-
-                        <Label
-                            htmlFor="receiptNumber"
-                            className="text-sm font-medium"
-                        >
-                            Mã hóa đơn
+                            Số phiếu nhập
                         </Label>
                         <Input
-                            id="receiptNumber"
-                            value={incomeFormData.receiptNumber || 'HD001'}
+                            id="importNumber"
+                            value={importFormData.importNumber || 'PN001'}
                             onChange={(e) =>
-                                setIncomeFormData({
-                                    ...incomeFormData,
-                                    receiptNumber: e.target.value,
+                                setImportFormData({
+                                    ...importFormData,
+                                    importNumber: e.target.value,
                                 })
                             }
                             className="bg-gray-50"
@@ -110,37 +88,37 @@ function CreateIncome({
                         />
                     </div>
 
-                    {/* Thông tin khách hàng */}
+                    {/* Thông tin nhà cung cấp */}
                     <div className="space-y-4 pt-2 border-t">
                         <h4 className="text-sm font-semibold text-gray-700">
-                            Thông tin khách hàng
+                            Thông tin nhà cung cấp
                         </h4>
 
                         <div className="space-y-2">
                             <Label
-                                htmlFor="customerName"
+                                htmlFor="supplier"
                                 className="text-sm font-medium"
                             >
-                                Mã khách hàng
+                                Nhà cung cấp
                             </Label>
                             <Input
-                                id="customerName"
-                                value={incomeFormData.customerName}
+                                id="supplier"
+                                value={importFormData.supplier}
                                 onChange={(e) =>
-                                    setIncomeFormData({
-                                        ...incomeFormData,
-                                        customerName: e.target.value,
+                                    setImportFormData({
+                                        ...importFormData,
+                                        supplier: e.target.value,
                                     })
                                 }
-                                placeholder="Nhập mã khách hàng"
+                                placeholder="Nhập tên nhà cung cấp"
                             />
                         </div>
                     </div>
 
-                    {/* Thông tin thanh toán */}
+                    {/* Thông tin nhập hàng */}
                     <div className="space-y-4 pt-2 border-t">
                         <h4 className="text-sm font-semibold text-gray-700">
-                            Thông tin thanh toán
+                            Thông tin nhập hàng
                         </h4>
 
                         <div className="grid grid-cols-2 gap-4">
@@ -149,15 +127,15 @@ function CreateIncome({
                                     htmlFor="date"
                                     className="text-sm font-medium"
                                 >
-                                    Ngày thu
+                                    Ngày nhập
                                 </Label>
                                 <Input
                                     id="date"
                                     type="date"
-                                    value={incomeFormData.date}
+                                    value={importFormData.date}
                                     onChange={(e) =>
-                                        setIncomeFormData({
-                                            ...incomeFormData,
+                                        setImportFormData({
+                                            ...importFormData,
                                             date: e.target.value,
                                         })
                                     }
@@ -168,15 +146,15 @@ function CreateIncome({
                                     htmlFor="time"
                                     className="text-sm font-medium"
                                 >
-                                    Giờ thu
+                                    Giờ nhập
                                 </Label>
                                 <Input
                                     id="time"
                                     type="time"
-                                    value={incomeFormData.time}
+                                    value={importFormData.time}
                                     onChange={(e) =>
-                                        setIncomeFormData({
-                                            ...incomeFormData,
+                                        setImportFormData({
+                                            ...importFormData,
                                             time: e.target.value,
                                         })
                                     }
@@ -186,19 +164,20 @@ function CreateIncome({
 
                         <div className="space-y-2">
                             <Label
-                                htmlFor="amount"
+                                htmlFor="totalItems"
                                 className="text-sm font-medium"
                             >
-                                Số tiền (VNĐ)
+                                Số lượng
                             </Label>
                             <Input
-                                id="amount"
+                                id="totalItems"
                                 type="number"
-                                value={incomeFormData.amount}
+                                value={importFormData.totalItems}
                                 onChange={(e) =>
-                                    setIncomeFormData({
-                                        ...incomeFormData,
-                                        amount: parseInt(e.target.value) || 0,
+                                    setImportFormData({
+                                        ...importFormData,
+                                        totalItems:
+                                            parseInt(e.target.value) || 0,
                                     })
                                 }
                                 placeholder="0"
@@ -207,53 +186,43 @@ function CreateIncome({
 
                         <div className="space-y-2">
                             <Label
-                                htmlFor="paymentMethod"
+                                htmlFor="totalAmount"
                                 className="text-sm font-medium"
                             >
-                                Hình thức thanh toán
+                                Tổng tiền (VNĐ)
                             </Label>
-                            <Select
-                                value={incomeFormData.paymentMethod}
-                                onValueChange={(value) =>
-                                    setIncomeFormData({
-                                        ...incomeFormData,
-                                        paymentMethod:
-                                            value as typeof incomeFormData.paymentMethod,
+                            <Input
+                                id="totalAmount"
+                                type="number"
+                                value={importFormData.totalAmount}
+                                onChange={(e) =>
+                                    setImportFormData({
+                                        ...importFormData,
+                                        totalAmount:
+                                            parseInt(e.target.value) || 0,
                                     })
                                 }
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Chọn hình thức" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Tiền mặt">
-                                        Tiền mặt
-                                    </SelectItem>
-                                    <SelectItem value="Chuyển khoản">
-                                        Chuyển khoản
-                                    </SelectItem>
-                                    <SelectItem value="Thẻ">Thẻ</SelectItem>
-                                </SelectContent>
-                            </Select>
+                                placeholder="0"
+                            />
                         </div>
 
                         <div className="space-y-2">
                             <Label
-                                htmlFor="collector"
+                                htmlFor="createdBy"
                                 className="text-sm font-medium"
                             >
-                                Người thu
+                                Mã nhân viên
                             </Label>
                             <Input
-                                id="collector"
-                                value={incomeFormData.collector}
+                                id="createdBy"
+                                value={importFormData.createdBy}
                                 onChange={(e) =>
-                                    setIncomeFormData({
-                                        ...incomeFormData,
-                                        collector: e.target.value,
+                                    setImportFormData({
+                                        ...importFormData,
+                                        createdBy: e.target.value,
                                     })
                                 }
-                                placeholder="Nhập tên người thu"
+                                placeholder="Nhập tên người tạo"
                             />
                         </div>
 
@@ -265,11 +234,11 @@ function CreateIncome({
                                 Trạng thái
                             </Label>
                             <Select
-                                value={incomeFormData.status}
+                                value={importFormData.status}
                                 onValueChange={(value) =>
-                                    setIncomeFormData({
-                                        ...incomeFormData,
-                                        status: value as typeof incomeFormData.status,
+                                    setImportFormData({
+                                        ...importFormData,
+                                        status: value as typeof importFormData.status,
                                     })
                                 }
                             >
@@ -277,8 +246,8 @@ function CreateIncome({
                                     <SelectValue placeholder="Chọn trạng thái" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Đã thu">
-                                        Đã thu
+                                    <SelectItem value="Hoàn thành">
+                                        Hoàn thành
                                     </SelectItem>
                                     <SelectItem value="Đang xử lý">
                                         Đang xử lý
@@ -299,12 +268,12 @@ function CreateIncome({
                     >
                         Hủy bỏ
                     </Button>
-                    <Button type="button" onClick={handleCreateReceipt}>
-                        Tạo phiếu thu
+                    <Button type="button" onClick={handleCreateImport}>
+                        Tạo phiếu nhập
                     </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
     );
 }
-export default CreateIncome;
+export default CreateReceipt;

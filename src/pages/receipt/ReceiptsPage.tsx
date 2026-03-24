@@ -8,7 +8,7 @@ import {
     Trash2,
     Download,
 } from 'lucide-react';
-import { Button } from '../components/ui/button';
+import { Button } from '../../components/ui/button';
 import {
     Dialog,
     DialogContent,
@@ -16,16 +16,16 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '../components/ui/dialog';
-import { Label } from '../components/ui/label';
-import { Input } from '../components/ui/input';
+} from '../../components/ui/dialog';
+import { Label } from '../../components/ui/label';
+import { Input } from '../../components/ui/input';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '../components/ui/select';
+} from '../../components/ui/select';
 import { toast } from 'sonner';
 
 interface Receipt {
