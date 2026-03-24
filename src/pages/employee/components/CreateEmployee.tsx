@@ -6,17 +6,17 @@ import {
     DialogHeader,
     DialogFooter,
     DialogTitle,
-} from '../ui/dialog';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+} from '../../../components/ui/dialog';
+import { Label } from '../../../components/ui/label';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
 import {
     SelectContent,
     Select,
     SelectValue,
     SelectTrigger,
     SelectItem,
-} from '../ui/select';
+} from '../../../components/ui/select';
 import toast from 'react-hot-toast';
 
 function CreateEmployee({

@@ -11,7 +11,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { InvoicePage } from './pages/invoice/InvoicePage';
 import { BooksPage } from './pages/book/BooksPage';
 import { CustomersPage } from './pages/customer/CustomersPage';
-import { ReceiptsPage } from './pages/ReceiptsPage';
+import { ReceiptsPage } from './pages/receipt/ReceiptsPage';
 import { ImportPage } from './pages/import/ImportPage';
 import { PromotionsPage } from './pages/promotion/PromotionsPage';
 import { EmployeesPage } from './pages/employee/EmployeesPage';
